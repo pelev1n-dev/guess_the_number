@@ -9,8 +9,9 @@ const guessTheNumber = (function () {
   function checkCounter() {
     counter--;
     if (counter === 0) {
-      alert(`Игра завершена у вас ${counter} попыток`);
-      guessTheNumber();
+      if (confirm(`Игра завершена у вас ${counter} попыток. Начать новую игру?`)){
+        return guessTheNumber();
+      }
     }
   }
 
@@ -40,7 +41,7 @@ const guessTheNumber = (function () {
 
     if (userAnswer === number){
       if(confirm("Вы угадали! Продолжить или завершить игру?")){
-        guessTheNumber();
+        return guessTheNumber();
       }
     }
 
