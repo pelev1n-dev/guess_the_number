@@ -1,34 +1,60 @@
 'use strict';
 
-let number = Math.floor(Math.random() * 100);
+function guessTheNumber() {
 
-function guess() {
-
-  let userAnswer = +prompt('Введите число от 1 до 100');
-
-  if(isNaN(userAnswer)){
-    alert('Введи число!');
-    guess();
+  function getRandomNumber() {
+    return Math.floor(Math.random() * 100);
   }
+  let number = getRandomNumber();
+  console.log(number);
 
-  if (userAnswer > number) {
-    alert('Загаданное число меньше');
-    guess();
-  }
+  function guess() {
 
-  if (userAnswer < number) {
-    alert('Загаданное число больше');
-    guess();
-  }
+    let userAnswer = +prompt('Введите число от 1 до 100');
 
-  if (userAnswer === number){
-    if (confirm("Вы угадали! Продолжить или завершить игру?")) {
+    if(isNaN(userAnswer)){
+      alert('Введи число!');
       guess();
+    }
+
+    if (userAnswer > number) {
+      alert(`Загаданное число меньше. Осталось попыток ${counter}`);
+      checkCounter();
+      guess();
+    }
+
+    if (userAnswer < number) {
+      alert(`Загаданное число больше. Осталось попыток ${counter}`);
+      checkCounter();
+      guess();
+    }
+
+    if (userAnswer === number){
+      if (confirm("Вы угадали! Продолжить или завершить игру?")) {
+        guessTheNumber();
+      } else {
+        return confirmGame();
+      }
+    }
+
+  }
+
+  let counter = 10;
+  function checkCounter() {
+    counter--;
+    if (counter === 0) {
+      return confirmGame();
     } else {
-      alert("Игра завершена");
+      return guess();
     }
   }
 
+  function confirmGame() {
+    alert('Игра завершена')
+  }
+
+  return guess();
+
 }
 
-guess();
+guessTheNumber();
