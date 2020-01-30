@@ -1,12 +1,71 @@
 'use strict';
 
-function guessTheNumber() {
+const guessTheNumber = (function () {
+
+  function getRandomNumber() {
+    return Math.floor(Math.random() * 100);
+  }
+
+  function checkCounter() {
+    counter--;
+    if (counter === 0) {
+      alert(`Игра завершена у вас ${counter} попыток`);
+      guessTheNumber();
+    }
+  }
+
+  let counter = 10;
+  let number = getRandomNumber();
+
+
+  return function guess() {
+
+    let userAnswer = +prompt(`Введите число от 1 до 100. У вас ${counter} попыток`);
+    checkCounter();
+
+    if(isNaN(userAnswer)){
+      alert('Введи число!');
+      guess();
+    }
+
+    if (userAnswer > number) {
+      alert(`Загаданное число меньше. Осталось попыток ${counter}`);
+      guess();
+    }
+
+    if (userAnswer < number) {
+      alert(`Загаданное число больше. Осталось попыток ${counter}`);
+      guess();
+    }
+
+    if (userAnswer === number){
+      if(confirm("Вы угадали! Продолжить или завершить игру?")){
+        guessTheNumber();
+      }
+    }
+
+  }
+
+})();
+
+guessTheNumber();
+
+/*function guessTheNumber() {
 
   function getRandomNumber() {
     return Math.floor(Math.random() * 100);
   }
   let number = getRandomNumber();
-  console.log(number);
+
+  let counter = 10;
+  function checkCounter() {
+    counter--;
+    if (counter === 0) {
+      endGame();
+    } else {
+      guess();
+    }
+  }
 
   function guess() {
 
@@ -33,28 +92,18 @@ function guessTheNumber() {
       if (confirm("Вы угадали! Продолжить или завершить игру?")) {
         guessTheNumber();
       } else {
-        return confirmGame();
+        endGame();
       }
     }
 
   }
 
-  let counter = 10;
-  function checkCounter() {
-    counter--;
-    if (counter === 0) {
-      return confirmGame();
-    } else {
-      return guess();
-    }
-  }
-
-  function confirmGame() {
-    alert('Игра завершена')
+  function endGame() {
+    alert('Игра завершена');
+    guessTheNumber();
   }
 
   return guess();
 
-}
+}*/
 
-guessTheNumber();
