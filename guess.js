@@ -7,6 +7,7 @@ function guess() {
 
   if(typeof (userAnswer) !== 'number') {
     userAnswer = +prompt('Введите число от 0 до 100');
+    guess();
   }
 
   if (userAnswer > number) {
