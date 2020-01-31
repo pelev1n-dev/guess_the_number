@@ -1,30 +1,30 @@
 'use strict';
 
-const guessTheNumber = (function () {
+const guessTheNumber = function () {
 
-  function getRandomNumber() {
+  const getRandomNumber = function() {
     return Math.floor(Math.random() * 100);
-  }
+  };
 
   let counter = 10;
   let number = getRandomNumber();
 
 
-  return function guess() {
+  const guess = function() {
 
     if (counter === 0) {
+      counter = 10;
       if (confirm(`Игра завершена у вас ${counter} попыток. Начать новую игру?`)){
-        counter = 10;
-        getRandomNumber();
         guessTheNumber();
+      } else {
+        return;
       }
-      return
     }
 
     let userAnswer = +prompt(`Введите число от 1 до 100.`);
 
-    if(null === userAnswer){
-      return
+    if(userAnswer === 0){
+      return;
     } else if(isNaN(userAnswer)){
       alert('Введи число!');
       guess();
@@ -38,15 +38,13 @@ const guessTheNumber = (function () {
       guess();
     } else if(userAnswer === number) {
       if(confirm("Вы угадали! Продолжить или завершить игру?")){
-        counter = 10;
-        getRandomNumber();
         guessTheNumber();
       }
     }
 
-  }
-
-})();
+  };
+  guess();
+};
 
 guessTheNumber();
 
